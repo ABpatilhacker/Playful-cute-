@@ -13,25 +13,21 @@ body{
   justify-content:center;
   align-items:center;
   font-family:'Poppins',sans-serif;
-  background:radial-gradient(circle at top,#1a001f,#0a0014 70%);
+  background:radial-gradient(circle at top,#200022,#0f0018 70%);
   overflow:hidden;
   color:white;
 }
 
-/* Floating soft particles */
-.particle{
+/* Floating background glow */
+body::before{
+  content:"";
   position:absolute;
-  width:6px;
-  height:6px;
-  background:#ff4d88;
-  border-radius:50%;
-  opacity:0.5;
-  animation:float 12s linear infinite;
-}
-
-@keyframes float{
-  from{transform:translateY(100vh);}
-  to{transform:translateY(-10vh);}
+  width:300px;
+  height:300px;
+  background:rgba(255,0,128,0.3);
+  filter:blur(120px);
+  top:-100px;
+  left:-100px;
 }
 
 /* Premium Card */
@@ -42,9 +38,11 @@ body{
   border-radius:30px;
   background:rgba(255,255,255,0.05);
   backdrop-filter:blur(20px);
-  box-shadow:0 0 60px rgba(255,0,120,0.2);
+  box-shadow:0 0 60px rgba(255,0,150,0.3);
   text-align:center;
   animation:fadeIn 1.2s ease;
+  position:relative;
+  z-index:2;
 }
 
 h1{
@@ -67,28 +65,55 @@ button{
 .option{
   background:linear-gradient(45deg,#ff2e88,#ff6ec7);
   color:white;
-  box-shadow:0 0 20px rgba(255,0,120,0.4);
+  box-shadow:0 0 20px rgba(255,0,120,0.5);
 }
 
 .option:hover{
   transform:scale(1.08);
-  box-shadow:0 0 30px rgba(255,0,120,0.7);
+  box-shadow:0 0 35px rgba(255,0,120,0.8);
 }
 
-.finalText{
-  font-size:24px;
-  line-height:1.7;
+.finalPage{
+  text-align:center;
+  animation:fadeIn 1.5s ease;
+}
+
+.loveText{
+  font-size:42px;
+  font-weight:600;
+  background:linear-gradient(45deg,#ff4da6,#ff99cc,#ffffff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
   animation:glow 2.5s infinite alternate;
+}
+
+.subText{
+  margin-top:20px;
+  font-size:20px;
+  opacity:0.9;
 }
 
 @keyframes glow{
   from{text-shadow:0 0 10px #ff4da6;}
-  to{text-shadow:0 0 35px #ff99cc;}
+  to{text-shadow:0 0 40px #ff99cc;}
 }
 
 @keyframes fadeIn{
   from{opacity:0; transform:translateY(20px);}
   to{opacity:1; transform:translateY(0);}
+}
+
+/* Falling hearts */
+.heart{
+  position:absolute;
+  font-size:22px;
+  animation:fall 6s linear infinite;
+  opacity:0.8;
+}
+
+@keyframes fall{
+  from{transform:translateY(-10vh);}
+  to{transform:translateY(110vh);}
 }
 </style>
 </head>
@@ -100,9 +125,9 @@ button{
 </audio>
 
 <div class="card" id="app">
-  <h1 id="question">Ishu… ready to enter something beautiful? 💗</h1>
+  <h1 id="question">Hey Ishu… can I ask you something? 😉</h1>
   <div id="options">
-    <button class="option" onclick="nextQ()">Enter</button>
+    <button class="option" onclick="nextQ()">Okay 😌</button>
   </div>
 </div>
 
@@ -117,20 +142,20 @@ function startMusic(){
 
 let questions=[
   {
-    q:"When I'm silent… can you still feel me thinking about you?",
-    options:["Yes… always 💭","I feel it deeply 💗"]
+    q:"Do you smile when you see my name? 😏",
+    options:["Maybe… 😉","Obviously 💗"]
   },
   {
-    q:"If the world disappears for a moment… would you stay with me?",
-    options:["Without hesitation 💞","Forever, no doubt 💫"]
+    q:"If I hug you suddenly… will you complain? 🤭",
+    options:["Never 😌","I’ll hug tighter 💞"]
   },
   {
-    q:"Do you know what you’ve become to me?",
-    options:["Tell me…","Something special?"]
+    q:"Be honest… do you miss me sometimes? 💌",
+    options:["Sometimes…","All the time 💖"]
   },
   {
-    q:"You’re not just someone I like… you’re someone I feel. Do you feel it too?",
-    options:["I do 💗","More than you know 💖"]
+    q:"One last thing… am I special to you? 💫",
+    options:["Very 💗","More than you know 😘"]
   }
 ];
 
@@ -156,18 +181,20 @@ function nextQ(){
 
 function showFinal(){
   document.getElementById("app").innerHTML=
-  "<div class='finalText'>Ishu… 💗<br><br>This isn’t just attraction.<br>This isn’t just a phase.<br><br>It’s calm.<br>It’s intensity.<br>It’s comfort.<br><br>It’s you.<br><br><b>I Love You.</b></div>";
+  "<div class='finalPage'><div class='loveText'>I Love You Ishu 💗</div><div class='subText'>Not just in words…<br>But in calm moments.<br>In smiles.<br>In silence.<br><br>You mean more than you think.</div></div>";
+  startHearts();
 }
 
-/* Create elegant particles */
-function createParticle(){
-  let p=document.createElement("div");
-  p.className="particle";
-  p.style.left=Math.random()*100+"vw";
-  document.body.appendChild(p);
-  setTimeout(()=>p.remove(),12000);
+function startHearts(){
+  setInterval(()=>{
+    let heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="💗";
+    heart.style.left=Math.random()*100+"vw";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+  },300);
 }
-setInterval(createParticle,800);
 </script>
 
 </body>
