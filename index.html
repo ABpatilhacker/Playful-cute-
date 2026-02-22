@@ -3,80 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Ishu 💕</title>
+<title>Ishu 💗</title>
 
 <style>
 body{
   margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Poppins',sans-serif;
+  background:radial-gradient(circle at top,#1a001f,#0a0014 70%);
   overflow:hidden;
-  font-family: 'Segoe UI', sans-serif;
-  text-align:center;
   color:white;
-  background:linear-gradient(-45deg,#ff758c,#ff7eb3,#ff9a9e,#fbc2eb);
-  background-size:400% 400%;
-  animation:gradient 10s ease infinite;
 }
 
-@keyframes gradient{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
-
-.container{
+/* Floating soft particles */
+.particle{
   position:absolute;
-  width:100%;
-  top:50%;
-  transform:translateY(-50%);
-  padding:20px;
-}
-
-h1{
-  font-size:28px;
-  margin-bottom:30px;
-}
-
-button{
-  padding:12px 25px;
-  margin:10px;
-  border:none;
-  border-radius:30px;
-  font-size:18px;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.option{
-  background:white;
-  color:#ff4b6e;
-}
-
-.option:hover{
-  transform:scale(1.1);
-}
-
-.glow{
-  font-size:40px;
-  color:white;
-  text-shadow:0 0 20px white,0 0 40px pink;
-  animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.1);}
-  100%{transform:scale(1);}
-}
-
-.heart{
-  position:absolute;
-  animation:float 6s linear infinite;
-  opacity:0.7;
+  width:6px;
+  height:6px;
+  background:#ff4d88;
+  border-radius:50%;
+  opacity:0.5;
+  animation:float 12s linear infinite;
 }
 
 @keyframes float{
   from{transform:translateY(100vh);}
   to{transform:translateY(-10vh);}
+}
+
+/* Premium Card */
+.card{
+  width:90%;
+  max-width:420px;
+  padding:45px 30px;
+  border-radius:30px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(20px);
+  box-shadow:0 0 60px rgba(255,0,120,0.2);
+  text-align:center;
+  animation:fadeIn 1.2s ease;
+}
+
+h1{
+  font-weight:500;
+  font-size:22px;
+  line-height:1.6;
+  margin-bottom:35px;
+}
+
+button{
+  padding:14px 26px;
+  margin:8px;
+  border:none;
+  border-radius:30px;
+  font-size:15px;
+  cursor:pointer;
+  transition:0.4s ease;
+}
+
+.option{
+  background:linear-gradient(45deg,#ff2e88,#ff6ec7);
+  color:white;
+  box-shadow:0 0 20px rgba(255,0,120,0.4);
+}
+
+.option:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 30px rgba(255,0,120,0.7);
+}
+
+.finalText{
+  font-size:24px;
+  line-height:1.7;
+  animation:glow 2.5s infinite alternate;
+}
+
+@keyframes glow{
+  from{text-shadow:0 0 10px #ff4da6;}
+  to{text-shadow:0 0 35px #ff99cc;}
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
 </style>
 </head>
@@ -84,13 +96,13 @@ button{
 <body onclick="startMusic()">
 
 <audio id="music" loop>
-<source src="romantic.mp3" type="audio/mpeg">
+  <source src="romantic.mp3" type="audio/mpeg">
 </audio>
 
-<div class="container" id="game">
-  <h1 id="question">Ready to play a cute game, Ishu? 😏</h1>
+<div class="card" id="app">
+  <h1 id="question">Ishu… ready to enter something beautiful? 💗</h1>
   <div id="options">
-    <button class="option" onclick="nextQ()">Start 💕</button>
+    <button class="option" onclick="nextQ()">Enter</button>
   </div>
 </div>
 
@@ -105,20 +117,20 @@ function startMusic(){
 
 let questions=[
   {
-    q:"If I steal your fries, what will you do? 🍟",
-    options:["Fight me 😤","Let me take them 😌"]
+    q:"When I'm silent… can you still feel me thinking about you?",
+    options:["Yes… always 💭","I feel it deeply 💗"]
   },
   {
-    q:"Who is more cute? 😏",
-    options:["You 😌","Me 😎"]
+    q:"If the world disappears for a moment… would you stay with me?",
+    options:["Without hesitation 💞","Forever, no doubt 💫"]
   },
   {
-    q:"If I say I miss you… you will? 💌",
-    options:["Miss you more 💕","Come immediately 😚"]
+    q:"Do you know what you’ve become to me?",
+    options:["Tell me…","Something special?"]
   },
   {
-    q:"One last question… are you mine? 😈",
-    options:["Always 💖","Forever 💍"]
+    q:"You’re not just someone I like… you’re someone I feel. Do you feel it too?",
+    options:["I do 💗","More than you know 💖"]
   }
 ];
 
@@ -143,35 +155,19 @@ function nextQ(){
 }
 
 function showFinal(){
-  document.getElementById("game").innerHTML=
-  "<div class='glow'>I LOVE YOU ISHU 💕</div>";
-  confetti();
+  document.getElementById("app").innerHTML=
+  "<div class='finalText'>Ishu… 💗<br><br>This isn’t just attraction.<br>This isn’t just a phase.<br><br>It’s calm.<br>It’s intensity.<br>It’s comfort.<br><br>It’s you.<br><br><b>I Love You.</b></div>";
 }
 
-function createHeart(){
-  let heart=document.createElement("div");
-  heart.className="heart";
-  heart.innerHTML="💖";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.fontSize=(Math.random()*20+20)+"px";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),6000);
+/* Create elegant particles */
+function createParticle(){
+  let p=document.createElement("div");
+  p.className="particle";
+  p.style.left=Math.random()*100+"vw";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),12000);
 }
-setInterval(createHeart,400);
-
-function confetti(){
-  for(let i=0;i<80;i++){
-    let c=document.createElement("div");
-    c.style.position="absolute";
-    c.style.width="8px";
-    c.style.height="8px";
-    c.style.background="white";
-    c.style.left=Math.random()*100+"vw";
-    c.style.top=Math.random()*100+"vh";
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),2000);
-  }
-}
+setInterval(createParticle,800);
 </script>
 
 </body>
