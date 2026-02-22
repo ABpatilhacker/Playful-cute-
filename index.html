@@ -6,109 +6,75 @@
 <title>For Ishu 💕</title>
 
 <style>
-body {
+body{
   margin:0;
   overflow:hidden;
-  font-family:'Segoe UI', sans-serif;
-  background: linear-gradient(-45deg,#ff9a9e,#fad0c4,#ffdde1,#ee9ca7);
-  background-size:400% 400%;
-  animation: gradient 10s ease infinite;
-  color:white;
+  font-family: 'Segoe UI', sans-serif;
   text-align:center;
+  color:white;
+  background:linear-gradient(-45deg,#ff758c,#ff7eb3,#ff9a9e,#fbc2eb);
+  background-size:400% 400%;
+  animation:gradient 10s ease infinite;
 }
 
-@keyframes gradient {
+@keyframes gradient{
   0%{background-position:0% 50%;}
   50%{background-position:100% 50%;}
   100%{background-position:0% 50%;}
 }
 
-.slide {
+.container{
   position:absolute;
   width:100%;
-  height:100%;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  animation:fade 1.5s;
+  top:50%;
+  transform:translateY(-50%);
+  padding:20px;
 }
 
-.slide img {
-  width:250px;
-  border-radius:20px;
-  box-shadow:0 0 30px rgba(255,255,255,0.6);
-  animation:zoom 8s ease-in-out infinite alternate;
+h1{
+  font-size:28px;
+  margin-bottom:30px;
 }
 
-@keyframes zoom {
-  from{transform:scale(1);}
-  to{transform:scale(1.1);}
-}
-
-@keyframes fade {
-  from{opacity:0;}
-  to{opacity:1;}
-}
-
-.message {
-  font-size:20px;
-  margin-top:20px;
-}
-
-button {
+button{
   padding:12px 25px;
-  font-size:18px;
+  margin:10px;
   border:none;
   border-radius:30px;
-  margin:10px;
+  font-size:18px;
   cursor:pointer;
   transition:0.3s;
 }
 
-.yes {
-  background:#ff4b6e;
-  color:white;
-}
-
-.no {
+.option{
   background:white;
   color:#ff4b6e;
-  position:absolute;
 }
 
-.final {
-  display:none;
-  position:absolute;
-  width:100%;
-  height:100%;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  background:black;
-  animation:fade 2s;
+.option:hover{
+  transform:scale(1.1);
 }
 
-.glow {
+.glow{
   font-size:40px;
-  color:#ff4b6e;
-  text-shadow:0 0 20px #ff4b6e,0 0 40px pink;
+  color:white;
+  text-shadow:0 0 20px white,0 0 40px pink;
   animation:pulse 2s infinite;
 }
 
-@keyframes pulse {
+@keyframes pulse{
   0%{transform:scale(1);}
   50%{transform:scale(1.1);}
   100%{transform:scale(1);}
 }
 
-.heart {
+.heart{
   position:absolute;
-  color:rgba(255,255,255,0.7);
-  animation:float 5s linear infinite;
+  animation:float 6s linear infinite;
+  opacity:0.7;
 }
 
-@keyframes float {
+@keyframes float{
   from{transform:translateY(100vh);}
   to{transform:translateY(-10vh);}
 }
@@ -118,60 +84,68 @@ button {
 <body onclick="startMusic()">
 
 <audio id="music" loop>
-<source src="your-music-link.mp3" type="audio/mpeg">
+<source src="romantic.mp3" type="audio/mpeg">
 </audio>
 
-<div class="slide" id="slide1">
-  <img src="photo1.jpg">
-  <div class="message">Every moment with you feels magical ✨</div>
-</div>
-
-<div class="slide" id="slide2">
-  <img src="photo2.jpg">
-  <div class="message">Your smile >>> whole universe 💖</div>
-</div>
-
-<div class="slide" id="slide3">
-  <img src="photo3.jpg">
-  <div class="message">I think I’m officially addicted to you 😌</div>
-</div>
-
-<div class="slide" id="slide4">
-  <h2>Do you love me? 😏</h2>
-  <button class="yes" onclick="showFinal()">YES 💕</button>
-  <button class="no" id="noBtn">NO 😜</button>
-</div>
-
-<div class="final" id="finalPage">
-  <div class="glow">I LOVE YOU ISHU 💕</div>
+<div class="container" id="game">
+  <h1 id="question">Ready to play a cute game, Ishu? 😏</h1>
+  <div id="options">
+    <button class="option" onclick="nextQ()">Start 💕</button>
+  </div>
 </div>
 
 <script>
-let current=0;
-let slides=document.getElementsByClassName("slide");
-
-function showSlide(){
-  for(let i=0;i<slides.length;i++) slides[i].style.display="none";
-  slides[current].style.display="flex";
-  current++;
-  if(current<slides.length-1){
-    setTimeout(showSlide,4000);
+let musicStarted=false;
+function startMusic(){
+  if(!musicStarted){
+    document.getElementById("music").play();
+    musicStarted=true;
   }
 }
-showSlide();
 
-function startMusic(){
-  document.getElementById("music").play();
+let questions=[
+  {
+    q:"If I steal your fries, what will you do? 🍟",
+    options:["Fight me 😤","Let me take them 😌"]
+  },
+  {
+    q:"Who is more cute? 😏",
+    options:["You 😌","Me 😎"]
+  },
+  {
+    q:"If I say I miss you… you will? 💌",
+    options:["Miss you more 💕","Come immediately 😚"]
+  },
+  {
+    q:"One last question… are you mine? 😈",
+    options:["Always 💖","Forever 💍"]
+  }
+];
+
+let current=0;
+
+function nextQ(){
+  if(current < questions.length){
+    document.getElementById("question").innerText = questions[current].q;
+    let optDiv=document.getElementById("options");
+    optDiv.innerHTML="";
+    questions[current].options.forEach(text=>{
+      let btn=document.createElement("button");
+      btn.className="option";
+      btn.innerText=text;
+      btn.onclick=nextQ;
+      optDiv.appendChild(btn);
+    });
+    current++;
+  }else{
+    showFinal();
+  }
 }
 
-let noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",function(){
-  noBtn.style.top=Math.random()*80+"vh";
-  noBtn.style.left=Math.random()*80+"vw";
-});
-
 function showFinal(){
-  document.getElementById("finalPage").style.display="flex";
+  document.getElementById("game").innerHTML=
+  "<div class='glow'>I LOVE YOU ISHU 💕</div>";
+  confetti();
 }
 
 function createHeart(){
@@ -179,11 +153,25 @@ function createHeart(){
   heart.className="heart";
   heart.innerHTML="💖";
   heart.style.left=Math.random()*100+"vw";
-  heart.style.fontSize=Math.random()*20+20+"px";
+  heart.style.fontSize=(Math.random()*20+20)+"px";
   document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),5000);
+  setTimeout(()=>heart.remove(),6000);
 }
-setInterval(createHeart,300);
+setInterval(createHeart,400);
+
+function confetti(){
+  for(let i=0;i<80;i++){
+    let c=document.createElement("div");
+    c.style.position="absolute";
+    c.style.width="8px";
+    c.style.height="8px";
+    c.style.background="white";
+    c.style.left=Math.random()*100+"vw";
+    c.style.top=Math.random()*100+"vh";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),2000);
+  }
+}
 </script>
 
 </body>
