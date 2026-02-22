@@ -6,40 +6,69 @@
 <title>Ishu 💗</title>
 
 <style>
+
+/* ================= GLOBAL ================= */
+
 body{
 margin:0;
 height:100vh;
 overflow:hidden;
 font-family:'Segoe UI',sans-serif;
-background:radial-gradient(circle at top,#1a001f,#0a0014 70%);
-color:white;
 display:flex;
 justify-content:center;
 align-items:center;
 text-align:center;
+color:white;
+
+/* Animated Background */
+background:linear-gradient(270deg,#1b001f,#3a0f3f,#ff2e88,#0c0012);
+background-size:800% 800%;
+animation:backgroundShift 18s ease infinite;
 }
 
-/* Premium Glass Card */
+@keyframes backgroundShift{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* Screen Glow (Music Beat Effect) */
+.glowBeat{
+animation:beatGlow 1.5s infinite;
+}
+
+@keyframes beatGlow{
+0%{box-shadow:0 0 20px rgba(255,0,150,0.3);}
+50%{box-shadow:0 0 120px rgba(255,0,150,0.8);}
+100%{box-shadow:0 0 20px rgba(255,0,150,0.3);}
+}
+
+/* Glass Card */
+
 .card{
 width:92%;
-max-width:430px;
-padding:40px 25px;
-border-radius:30px;
+max-width:420px;
+padding:45px 30px;
+border-radius:35px;
 background:rgba(255,255,255,0.06);
-backdrop-filter:blur(25px);
-box-shadow:0 0 80px rgba(255,0,150,0.4);
+backdrop-filter:blur(30px);
+box-shadow:0 0 90px rgba(255,0,150,0.4);
 animation:fadeIn 1.2s ease;
 }
 
-/* Questions */
+/* Question */
+
 h1{
 font-size:22px;
+line-height:1.6;
 margin-bottom:25px;
-line-height:1.5;
+font-weight:500;
 }
 
+/* Buttons */
+
 button{
-padding:12px 22px;
+padding:12px 24px;
 margin:8px;
 border:none;
 border-radius:30px;
@@ -51,35 +80,37 @@ transition:0.3s ease;
 .option{
 background:linear-gradient(45deg,#ff2e88,#ff6ec7);
 color:white;
-box-shadow:0 0 20px rgba(255,0,120,0.6);
+box-shadow:0 0 25px rgba(255,0,120,0.6);
 }
 
 .option:hover{
-transform:scale(1.1);
-box-shadow:0 0 35px rgba(255,0,120,1);
+transform:scale(1.08);
+box-shadow:0 0 40px rgba(255,0,120,1);
 }
 
 /* Final Text */
+
 .finalText{
-font-size:32px;
+font-size:34px;
 font-weight:bold;
 background:linear-gradient(45deg,#ff4da6,#ff99cc,#ffffff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-animation:heartbeat 1.5s infinite;
+animation:heartbeat 1.8s infinite;
 }
 
 .subText{
 margin-top:20px;
 font-size:18px;
-line-height:1.6;
 opacity:0.9;
+line-height:1.6;
 }
 
 /* Heartbeat */
+
 @keyframes heartbeat{
 0%{transform:scale(1);}
-25%{transform:scale(1.08);}
+25%{transform:scale(1.07);}
 50%{transform:scale(1);}
 75%{transform:scale(1.1);}
 100%{transform:scale(1);}
@@ -90,12 +121,13 @@ from{opacity:0;transform:translateY(20px);}
 to{opacity:1;transform:translateY(0);}
 }
 
-/* Falling Hearts */
+/* Soft Falling Hearts */
+
 .heart{
 position:absolute;
-font-size:22px;
-animation:fall 6s linear infinite;
-opacity:0.8;
+font-size:20px;
+animation:fall 8s linear infinite;
+opacity:0.7;
 }
 
 @keyframes fall{
@@ -104,14 +136,15 @@ to{transform:translateY(110vh);}
 }
 
 /* Sparkles */
+
 .sparkle{
 position:absolute;
 width:4px;
 height:4px;
 background:white;
 border-radius:50%;
-opacity:0.7;
-animation:twinkle 3s infinite;
+opacity:0.6;
+animation:twinkle 3s infinite ease-in-out;
 }
 
 @keyframes twinkle{
@@ -120,22 +153,24 @@ animation:twinkle 3s infinite;
 100%{opacity:0.2;}
 }
 
-/* Kiss Animation */
+/* Kiss */
+
 .kiss{
 position:absolute;
-font-size:30px;
+font-size:28px;
 animation:kissPop 1s ease-out forwards;
 pointer-events:none;
 }
 
 @keyframes kissPop{
-0%{transform:scale(0.5);opacity:1;}
-100%{transform:scale(3) translateY(-40px);opacity:0;}
+0%{transform:scale(0.6);opacity:1;}
+100%{transform:scale(2.5) translateY(-40px);opacity:0;}
 }
 
 /* Screen Vibration */
+
 .vibrate{
-animation:vibrate 0.2s linear 3;
+animation:vibrate 0.25s linear 2;
 }
 
 @keyframes vibrate{
@@ -145,6 +180,7 @@ animation:vibrate 0.2s linear 3;
 75%{transform:translate(-2px,2px);}
 100%{transform:translate(0,0);}
 }
+
 </style>
 </head>
 
@@ -155,7 +191,10 @@ animation:vibrate 0.2s linear 3;
 </audio>
 
 <div class="card" id="app">
-<h1 id="question">Hey Ishu 💗<br>Ready for a Fancy Love Game? 😏</h1>
+<h1 id="question">
+Hey Ishu 💗<br>
+Ready for something romantic & cute? ✨
+</h1>
 
 <div id="options">
 <button class="option" onclick="startGame()">Start 💕</button>
@@ -164,26 +203,34 @@ animation:vibrate 0.2s linear 3;
 
 <script>
 
+/* ================= MUSIC + BEAT GLOW ================= */
+
 let musicStarted=false;
 function startMusic(){
 if(!musicStarted){
-document.getElementById("music").play();
+let audio=document.getElementById("music");
+audio.play();
 musicStarted=true;
+
+/* Activate beat glow when music plays */
+document.body.classList.add("glowBeat");
+
 }
 }
 
-/* Fancy Game Questions */
+/* ================= QUESTIONS ================= */
+
 let questions=[
 {
 q:"Do you secretly smile when you see my name? 😏",
 options:["Maybe…","Obviously 💗"]
 },
 {
-q:"If I suddenly hold your hand… what will you do? 🤭",
-options:["Hold tighter 💞","Blush and stay 😳"]
+q:"If I hold your hand suddenly… will you let go? 🤭",
+options:["Never 💞","Hold tighter ✨"]
 },
 {
-q:"Be honest… do I make your heart beat faster? 💓",
+q:"Be honest… do I make your heart calm? 💓",
 options:["Yes…","Always 😌"]
 },
 {
@@ -201,8 +248,10 @@ loadQuestion();
 function loadQuestion(){
 if(current < questions.length){
 document.getElementById("question").innerText=questions[current].q;
+
 let optDiv=document.getElementById("options");
 optDiv.innerHTML="";
+
 questions[current].options.forEach(text=>{
 let btn=document.createElement("button");
 btn.className="option";
@@ -213,28 +262,33 @@ loadQuestion();
 };
 optDiv.appendChild(btn);
 });
+
 }else{
 showFinal();
 }
 }
 
-/* Final Premium Page */
+/* ================= FINAL PAGE ================= */
+
 function showFinal(){
+
 document.getElementById("app").innerHTML=`
 <div class="finalText">I Love You Ishu 💗</div>
 <div class="subText">
-Not just words…<br>
-But feelings.<br>
-Heartbeat.<br>
-Comfort.<br>
-Forever.
+Not just today.<br>
+Not just in moments.<br>
+But in silence.<br>
+In comfort.<br>
+In everything we feel ✨
 </div>
 `;
+
 startHearts();
 startSparkles();
 }
 
-/* Falling Hearts */
+/* ================= HEARTS ================= */
+
 function startHearts(){
 setInterval(()=>{
 let h=document.createElement("div");
@@ -243,13 +297,14 @@ h.innerHTML="💗";
 h.style.left=Math.random()*100+"vw";
 h.style.fontSize=(15+Math.random()*25)+"px";
 document.body.appendChild(h);
-setTimeout(()=>h.remove(),6000);
-},300);
+setTimeout(()=>h.remove(),8000);
+},500);
 }
 
-/* Sparkles */
+/* ================= SPARKLES ================= */
+
 function startSparkles(){
-for(let i=0;i<80;i++){
+for(let i=0;i<90;i++){
 let s=document.createElement("div");
 s.className="sparkle";
 s.style.left=Math.random()*100+"vw";
@@ -259,41 +314,22 @@ document.body.appendChild(s);
 }
 }
 
-/* 🎉 Kiss + Vibration Effect */
+/* ================= KISS TOUCH EFFECT ================= */
+
 document.body.addEventListener("touchstart",function(e){
 
 document.body.classList.add("vibrate");
-setTimeout(()=>{
-document.body.classList.remove("vibrate");
-},600);
+setTimeout(()=>document.body.classList.remove("vibrate"),600);
 
 let kiss=document.createElement("div");
 kiss.className="kiss";
 kiss.innerHTML="💋";
 kiss.style.left=e.touches[0].clientX+"px";
 kiss.style.top=e.touches[0].clientY+"px";
-document.body.appendChild(kiss);
 
+document.body.appendChild(kiss);
 setTimeout(()=>kiss.remove(),1000);
 
-});
-
-/* Extra Fancy Touch – Double Tap Heart Explosion */
-let lastTap=0;
-document.body.addEventListener("touchend",function(){
-let now=Date.now();
-if(now-lastTap < 300){
-for(let i=0;i<30;i++){
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤️";
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(20+Math.random()*20)+"px";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),4000);
-}
-}
-lastTap=now;
 });
 
 </script>
