@@ -1,190 +1,189 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Hey Ishu 😏💕</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Ishu 💕</title>
 
 <style>
-body{
-margin:0;
-padding:0;
-background:linear-gradient(135deg,#ff9ecf,#ff66cc,#ff1493);
-background-size:400% 400%;
-animation:gradientMove 8s ease infinite;
-font-family:sans-serif;
-color:white;
-text-align:center;
-overflow:hidden;
+body {
+  margin:0;
+  overflow:hidden;
+  font-family:'Segoe UI', sans-serif;
+  background: linear-gradient(-45deg,#ff9a9e,#fad0c4,#ffdde1,#ee9ca7);
+  background-size:400% 400%;
+  animation: gradient 10s ease infinite;
+  color:white;
+  text-align:center;
 }
 
-@keyframes gradientMove{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
+@keyframes gradient {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
 }
 
-h1{
-margin-top:60px;
-font-size:28px;
+.slide {
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  animation:fade 1.5s;
 }
 
-p{
-font-size:18px;
-margin:20px;
+.slide img {
+  width:250px;
+  border-radius:20px;
+  box-shadow:0 0 30px rgba(255,255,255,0.6);
+  animation:zoom 8s ease-in-out infinite alternate;
 }
 
-.buttons{
-margin-top:30px;
-position:relative;
+@keyframes zoom {
+  from{transform:scale(1);}
+  to{transform:scale(1.1);}
 }
 
-button{
-padding:12px 25px;
-border:none;
-border-radius:25px;
-font-size:16px;
-cursor:pointer;
-margin:10px;
-transition:0.3s;
+@keyframes fade {
+  from{opacity:0;}
+  to{opacity:1;}
 }
 
-#yesBtn{
-background:white;
-color:#ff1493;
-box-shadow:0 0 15px white;
+.message {
+  font-size:20px;
+  margin-top:20px;
 }
 
-#yesBtn:hover{
-transform:scale(1.1);
+button {
+  padding:12px 25px;
+  font-size:18px;
+  border:none;
+  border-radius:30px;
+  margin:10px;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-#noBtn{
-background:#ff1493;
-color:white;
-position:absolute;
+.yes {
+  background:#ff4b6e;
+  color:white;
 }
 
-/* Final romantic overlay */
-#finalMessage{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:radial-gradient(circle,#ff1493,#000);
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-opacity:0;
-pointer-events:none;
-transition:1.5s;
+.no {
+  background:white;
+  color:#ff4b6e;
+  position:absolute;
 }
 
-#finalMessage h2{
-font-size:36px;
-animation:glow 2s infinite alternate;
+.final {
+  display:none;
+  position:absolute;
+  width:100%;
+  height:100%;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  background:black;
+  animation:fade 2s;
 }
 
-@keyframes glow{
-from{text-shadow:0 0 10px #fff;}
-to{text-shadow:0 0 25px #fff;}
+.glow {
+  font-size:40px;
+  color:#ff4b6e;
+  text-shadow:0 0 20px #ff4b6e,0 0 40px pink;
+  animation:pulse 2s infinite;
 }
 
-#herPhoto{
-width:220px;
-border-radius:20px;
-margin-top:20px;
-box-shadow:0 0 30px white;
-animation:zoomIn 2s ease;
+@keyframes pulse {
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
 }
 
-@keyframes zoomIn{
-from{transform:scale(0.5);opacity:0;}
-to{transform:scale(1);opacity:1;}
+.heart {
+  position:absolute;
+  color:rgba(255,255,255,0.7);
+  animation:float 5s linear infinite;
 }
 
-/* Floating hearts */
-.heart{
-position:absolute;
-bottom:-50px;
-color:white;
-font-size:20px;
-animation:rise 6s linear infinite;
-opacity:0.7;
-}
-
-@keyframes rise{
-to{
-transform:translateY(-110vh) scale(1.5);
-opacity:0;
-}
+@keyframes float {
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
 }
 </style>
 </head>
 
-<body>
-
-<h1>Hey Ishu 😏💕</h1>
-<p>Be honest…  
-Are you this cute on purpose? 🥺</p>
-
-<div class="buttons">
-<button id="yesBtn">Yes obviously 😌</button>
-<button id="noBtn">No 😶</button>
-</div>
-
-<div id="finalMessage">
-<h2>I knew it 💕</h2>
-<p>I fall for you a little more every single day 😌✨</p>
-<img src="ishu.jpg" id="herPhoto">
-</div>
+<body onclick="startMusic()">
 
 <audio id="music" loop>
-<source src="romantic.mp3" type="audio/mpeg">
+<source src="your-music-link.mp3" type="audio/mpeg">
 </audio>
 
+<div class="slide" id="slide1">
+  <img src="photo1.jpg">
+  <div class="message">Every moment with you feels magical ✨</div>
+</div>
+
+<div class="slide" id="slide2">
+  <img src="photo2.jpg">
+  <div class="message">Your smile >>> whole universe 💖</div>
+</div>
+
+<div class="slide" id="slide3">
+  <img src="photo3.jpg">
+  <div class="message">I think I’m officially addicted to you 😌</div>
+</div>
+
+<div class="slide" id="slide4">
+  <h2>Do you love me? 😏</h2>
+  <button class="yes" onclick="showFinal()">YES 💕</button>
+  <button class="no" id="noBtn">NO 😜</button>
+</div>
+
+<div class="final" id="finalPage">
+  <div class="glow">I LOVE YOU ISHU 💕</div>
+</div>
+
 <script>
+let current=0;
+let slides=document.getElementsByClassName("slide");
 
-/* Make NO button run away */
+function showSlide(){
+  for(let i=0;i<slides.length;i++) slides[i].style.display="none";
+  slides[current].style.display="flex";
+  current++;
+  if(current<slides.length-1){
+    setTimeout(showSlide,4000);
+  }
+}
+showSlide();
+
+function startMusic(){
+  document.getElementById("music").play();
+}
+
 let noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",()=>{
-noBtn.style.top=Math.random()*80+"vh";
-noBtn.style.left=Math.random()*80+"vw";
+noBtn.addEventListener("mouseover",function(){
+  noBtn.style.top=Math.random()*80+"vh";
+  noBtn.style.left=Math.random()*80+"vw";
 });
 
-/* YES button click */
-document.getElementById("yesBtn").addEventListener("click",()=>{
-let final=document.getElementById("finalMessage");
-final.style.opacity=1;
-final.style.pointerEvents="auto";
+function showFinal(){
+  document.getElementById("finalPage").style.display="flex";
+}
 
-/* Start music */
-document.getElementById("music").play();
-
-/* Heart rain */
-setInterval(()=>{
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="💖";
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(15+Math.random()*25)+"px";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),6000);
-},300);
-});
-
-/* Background floating hearts */
-setInterval(()=>{
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="💕";
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(15+Math.random()*25)+"px";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),6000);
-},800);
-
+function createHeart(){
+  let heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="💖";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=Math.random()*20+20+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),5000);
+}
+setInterval(createHeart,300);
 </script>
 
 </body>
