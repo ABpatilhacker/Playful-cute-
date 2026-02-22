@@ -7,7 +7,7 @@
 
 <style>
 
-/* ================= GLOBAL ================= */
+/* ================= BACKGROUND ================= */
 
 body{
 margin:0;
@@ -20,19 +20,19 @@ align-items:center;
 text-align:center;
 color:white;
 
-/* Animated Background */
-background:linear-gradient(270deg,#1b001f,#3a0f3f,#ff2e88,#0c0012);
+/* Smooth animated romantic background */
+background:linear-gradient(270deg,#1a001f,#3a0f3f,#ff2e88,#0c0012);
 background-size:800% 800%;
-animation:backgroundShift 18s ease infinite;
+animation:bgMove 20s ease infinite;
 }
 
-@keyframes backgroundShift{
+@keyframes bgMove{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
 }
 
-/* Screen Glow (Music Beat Effect) */
+/* Glow when music plays */
 .glowBeat{
 animation:beatGlow 1.5s infinite;
 }
@@ -43,11 +43,11 @@ animation:beatGlow 1.5s infinite;
 100%{box-shadow:0 0 20px rgba(255,0,150,0.3);}
 }
 
-/* Glass Card */
+/* ================= MAIN CARD ================= */
 
 .card{
 width:92%;
-max-width:420px;
+max-width:430px;
 padding:45px 30px;
 border-radius:35px;
 background:rgba(255,255,255,0.06);
@@ -56,19 +56,38 @@ box-shadow:0 0 90px rgba(255,0,150,0.4);
 animation:fadeIn 1.2s ease;
 }
 
-/* Question */
+/* Fade animation */
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
 
+/* Title */
 h1{
 font-size:22px;
 line-height:1.6;
-margin-bottom:25px;
 font-weight:500;
+}
+
+/* Quotes */
+.quote{
+font-size:18px;
+margin-top:15px;
+opacity:0.9;
+font-style:italic;
+animation:quoteFade 3s ease-in-out infinite;
+}
+
+@keyframes quoteFade{
+0%{opacity:0.3;}
+50%{opacity:1;}
+100%{opacity:0.3;}
 }
 
 /* Buttons */
 
 button{
-padding:12px 24px;
+padding:12px 22px;
 margin:8px;
 border:none;
 border-radius:30px;
@@ -84,14 +103,14 @@ box-shadow:0 0 25px rgba(255,0,120,0.6);
 }
 
 .option:hover{
-transform:scale(1.08);
+transform:scale(1.1);
 box-shadow:0 0 40px rgba(255,0,120,1);
 }
 
-/* Final Text */
+/* Final Page */
 
 .finalText{
-font-size:34px;
+font-size:32px;
 font-weight:bold;
 background:linear-gradient(45deg,#ff4da6,#ff99cc,#ffffff);
 -webkit-background-clip:text;
@@ -102,26 +121,21 @@ animation:heartbeat 1.8s infinite;
 .subText{
 margin-top:20px;
 font-size:18px;
-opacity:0.9;
 line-height:1.6;
+opacity:0.9;
 }
 
 /* Heartbeat */
 
 @keyframes heartbeat{
 0%{transform:scale(1);}
-25%{transform:scale(1.07);}
+25%{transform:scale(1.08);}
 50%{transform:scale(1);}
 75%{transform:scale(1.1);}
 100%{transform:scale(1);}
 }
 
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;transform:translateY(0);}
-}
-
-/* Soft Falling Hearts */
+/* Floating Hearts */
 
 .heart{
 position:absolute;
@@ -191,38 +205,58 @@ animation:vibrate 0.25s linear 2;
 </audio>
 
 <div class="card" id="app">
-<h1 id="question">
-Hey Ishu 💗<br>
-Ready for something romantic & cute? ✨
+
+<h1 id="introText">
+✨ Welcome Ishu ✨<br><br>
+Before starting…<br>
+Read these love words first 💗
 </h1>
 
+<div class="quote" id="quoteBox"></div>
+
 <div id="options">
-<button class="option" onclick="startGame()">Start 💕</button>
+<button class="option" onclick="startGame()">Enter 💕</button>
 </div>
+
 </div>
 
 <script>
 
-/* ================= MUSIC + BEAT GLOW ================= */
+/* ================= MUSIC + GLOW ================= */
 
 let musicStarted=false;
+
 function startMusic(){
 if(!musicStarted){
 let audio=document.getElementById("music");
 audio.play();
 musicStarted=true;
-
-/* Activate beat glow when music plays */
 document.body.classList.add("glowBeat");
+}
+}
 
-}
-}
+/* ================= LOVE QUOTES ================= */
+
+let quotes=[
+"Love is not about possession… it's about presence 💗",
+"When I see you, my world becomes calm ✨",
+"You are my favorite notification 💕",
+"Every heartbeat reminds me of you 💓",
+"With you, everything feels special 💖"
+];
+
+let qIndex=0;
+
+setInterval(()=>{
+document.getElementById("quoteBox").innerText=quotes[qIndex];
+qIndex=(qIndex+1)%quotes.length;
+},3000);
 
 /* ================= QUESTIONS ================= */
 
 let questions=[
 {
-q:"Do you secretly smile when you see my name? 😏",
+q:"Do you smile when you see my name? 😏",
 options:["Maybe…","Obviously 💗"]
 },
 {
@@ -247,7 +281,9 @@ loadQuestion();
 
 function loadQuestion(){
 if(current < questions.length){
-document.getElementById("question").innerText=questions[current].q;
+
+document.getElementById("introText").innerText=questions[current].q;
+document.getElementById("quoteBox").style.display="none";
 
 let optDiv=document.getElementById("options");
 optDiv.innerHTML="";
@@ -275,11 +311,11 @@ function showFinal(){
 document.getElementById("app").innerHTML=`
 <div class="finalText">I Love You Ishu 💗</div>
 <div class="subText">
-Not just today.<br>
-Not just in moments.<br>
-But in silence.<br>
-In comfort.<br>
-In everything we feel ✨
+Not just words…<br>
+But feelings.<br>
+Comfort.<br>
+Trust.<br>
+Forever ✨
 </div>
 `;
 
@@ -287,7 +323,7 @@ startHearts();
 startSparkles();
 }
 
-/* ================= HEARTS ================= */
+/* Hearts */
 
 function startHearts(){
 setInterval(()=>{
@@ -301,7 +337,7 @@ setTimeout(()=>h.remove(),8000);
 },500);
 }
 
-/* ================= SPARKLES ================= */
+/* Sparkles */
 
 function startSparkles(){
 for(let i=0;i<90;i++){
@@ -313,24 +349,6 @@ s.style.animationDelay=Math.random()*3+"s";
 document.body.appendChild(s);
 }
 }
-
-/* ================= KISS TOUCH EFFECT ================= */
-
-document.body.addEventListener("touchstart",function(e){
-
-document.body.classList.add("vibrate");
-setTimeout(()=>document.body.classList.remove("vibrate"),600);
-
-let kiss=document.createElement("div");
-kiss.className="kiss";
-kiss.innerHTML="💋";
-kiss.style.left=e.touches[0].clientX+"px";
-kiss.style.top=e.touches[0].clientY+"px";
-
-document.body.appendChild(kiss);
-setTimeout(()=>kiss.remove(),1000);
-
-});
 
 </script>
 
