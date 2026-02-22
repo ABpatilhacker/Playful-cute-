@@ -33,9 +33,9 @@ font-size:18px;
 margin:20px;
 }
 
-/* Buttons */
 .buttons{
 margin-top:30px;
+position:relative;
 }
 
 button{
@@ -45,6 +45,7 @@ border-radius:25px;
 font-size:16px;
 cursor:pointer;
 margin:10px;
+transition:0.3s;
 }
 
 #yesBtn{
@@ -53,13 +54,17 @@ color:#ff1493;
 box-shadow:0 0 15px white;
 }
 
+#yesBtn:hover{
+transform:scale(1.1);
+}
+
 #noBtn{
 background:#ff1493;
 color:white;
 position:absolute;
 }
 
-/* Final message */
+/* Final romantic overlay */
 #finalMessage{
 position:fixed;
 top:0;
@@ -86,8 +91,21 @@ from{text-shadow:0 0 10px #fff;}
 to{text-shadow:0 0 25px #fff;}
 }
 
-/* Floating bubbles */
-.bubble{
+#herPhoto{
+width:220px;
+border-radius:20px;
+margin-top:20px;
+box-shadow:0 0 30px white;
+animation:zoomIn 2s ease;
+}
+
+@keyframes zoomIn{
+from{transform:scale(0.5);opacity:0;}
+to{transform:scale(1);opacity:1;}
+}
+
+/* Floating hearts */
+.heart{
 position:absolute;
 bottom:-50px;
 color:white;
@@ -117,9 +135,14 @@ Are you this cute on purpose? 🥺</p>
 </div>
 
 <div id="finalMessage">
-<h2>Of course you are 💕</h2>
+<h2>I knew it 💕</h2>
 <p>I fall for you a little more every single day 😌✨</p>
+<img src="ishu.jpg" id="herPhoto">
 </div>
+
+<audio id="music" loop>
+<source src="romantic.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
@@ -130,16 +153,19 @@ noBtn.style.top=Math.random()*80+"vh";
 noBtn.style.left=Math.random()*80+"vw";
 });
 
-/* YES button */
+/* YES button click */
 document.getElementById("yesBtn").addEventListener("click",()=>{
 let final=document.getElementById("finalMessage");
 final.style.opacity=1;
 final.style.pointerEvents="auto";
 
+/* Start music */
+document.getElementById("music").play();
+
 /* Heart rain */
 setInterval(()=>{
 let heart=document.createElement("div");
-heart.className="bubble";
+heart.className="heart";
 heart.innerHTML="💖";
 heart.style.left=Math.random()*100+"vw";
 heart.style.fontSize=(15+Math.random()*25)+"px";
@@ -150,13 +176,13 @@ setTimeout(()=>heart.remove(),6000);
 
 /* Background floating hearts */
 setInterval(()=>{
-let bubble=document.createElement("div");
-bubble.className="bubble";
-bubble.innerHTML="💕";
-bubble.style.left=Math.random()*100+"vw";
-bubble.style.fontSize=(15+Math.random()*25)+"px";
-document.body.appendChild(bubble);
-setTimeout(()=>bubble.remove(),6000);
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💕";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(15+Math.random()*25)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
 },800);
 
 </script>
